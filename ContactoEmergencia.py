@@ -24,3 +24,9 @@ def ContactoEmergencia():
         repeat = False
     
     return repeat
+
+def ejecucionEmergencia():
+    while (ContactoEmergencia()):
+        pass
+
+ejecucionEmergencia()

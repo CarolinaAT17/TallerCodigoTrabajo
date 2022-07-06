@@ -22,9 +22,19 @@ def MenuPrincipal():
         CargaFamiliar()
 
     if opcion == 3:
+
         ContactoEmergencia()
 
     if opcion == 4:
         repeat = False
     
+
+
     return repeat
+
+def ejecucion():
+    while(MenuPrincipal()):
+        pass
+
+
+ejecucion()

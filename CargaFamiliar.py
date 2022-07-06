@@ -24,3 +24,10 @@ def CargaFamiliar():
         repeat = False
     
     return repeat
+
+
+def ejecucion2():
+    while(CargaFamiliar()):
+        pass    
+
+ejecucion2()
