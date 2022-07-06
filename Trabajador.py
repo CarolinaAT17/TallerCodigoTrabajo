@@ -29,13 +29,13 @@ def AgregarTrabajador():
 
     if len(Validacion) == 0:
           # Generar insert
-        miCursor.execute("INSERT INTO CREDITO VALUES({}, '{}', {}, {}, {}, {})".format(a.rut_t, a.nombre, a.apellido, a.direccion, a.telefono. a.fecha_ingreso))
+        miCursor.execute("INSERT INTO CREDITO VALUES('{}', '{}', '{}', '{}', '{}', '{}')".format(a.rut_t, a.nombre, a.apellido, a.direccion, a.telefono, a.fecha_ingreso))
             # Guardar cambios
         conn.commit()
         print("Datos creados exitosamente")
     else:
         print("Error, no se puede agregar ya que la ID existe")
-# Modificar
+# MODIFICAR
 def ModificarTrabajador():
     rut_t = input("Ingrese el rut de trabajador a editar: ")
     miCursor.execute("SELECT * FROM PRODUCTO WHERE rut_t  = {}".format(rut_t))
@@ -83,7 +83,7 @@ def ModificarTrabajador():
         miCursor.execute("UPDATE TRABAJADOR SET nombre = '{}', apellido = '{}', direccion = '{}', telefono = '{}' WHERE rut_t = {}".format(nombre, apellido, direccion, telefono, rut_t))    
         conn.commit()
         print("El Producto con ID: {} se actualizó correctamente".format(rut_t))
-# Listar
+# LISTAR
 def ListarTrabajador():
     miCursor.execute("SELECT * FROM TRABAJADOR")
     listaTrabajador = miCursor.fetchall()
@@ -100,6 +100,7 @@ def MenuTrabajador():
     print("2 Modificar")
     print("3 Listar")
     print("4 Salir")
+    print("------------------------------")
     opcion = int(input())
 
     if opcion == 1:

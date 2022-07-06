@@ -1,9 +1,12 @@
-import os
+import os,sqlite3
 os.system("cls")
 
 import Trabajador
 import CargaFamiliar
 import ContactoEmergencia
+
+conn = sqlite3.connect("TRABAJO.db")
+miCursor = conn.cursor()
 
 def MenuPrincipal():
     repeat = True
@@ -16,13 +19,13 @@ def MenuPrincipal():
     opcion = int(input("Ingrese opcion: "))
 
     if opcion == 1:
-        Trabajador()
+        Trabajador(Trabajador.MenuTrabajador)
 
     if opcion == 2:
-        CargaFamiliar()
+        CargaFamiliar(CargaFamiliar.MenuFamiliar)
 
     if opcion == 3:
-        ContactoEmergencia()
+        ContactoEmergencia(ContactoEmergencia.MenuContacto)
 
     if opcion == 4:
         repeat = False
