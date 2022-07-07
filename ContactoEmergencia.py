@@ -6,7 +6,7 @@ conn = sqlite3.connect("TRABAJO.db")
 miCursor = conn.cursor()
 
 class ContactoEmergencia:
-    def __init__(self, rut_ce, nombre, apellido, relacion ,telefono):
+    def __init__(self, rut_ce, nombre, apellido, relacion, telefono):
         self.rut_ce = rut_ce
         self.nombre = nombre
         self.apellido = apellido
@@ -41,48 +41,47 @@ def ModificarContacto():
     if len(listaContacto) == 0:
         print("No se puede modificar contacto de emergencia")
     else:
-        print("El rut que desea editar es {} ¿Desea cambiarlo? 1.Si 2.No".format(listaContacto[0][1]))
+        print("El nombre que desea editar es {} ¿Desea cambiarlo? 1.Si 2.No".format(listaContacto[0][1]))
         
         opcion = int(input())
 
         if opcion == 1:
             nombre = input("Ingrese nuevo nombre del familiar: ")
         else:
-            nombre = listaContacto[0][1]
-        print("El nombre del familiar ahora es {} ¿Desea cambiarlo? 1.Si 2.No".format(listaContacto[0][2]))
+            if opcion==2:
+                nombre = listaContacto[0][1]
+        print("El apellido del familiar ahora es {} ¿Desea cambiarlo? 1.Si 2.No".format(listaContacto[0][2]))
 
         opcion = int(input())
         
         if opcion == 1:
             apellido = input("Ingrese el nuevo apellido del trabajador: ")
         else:
-            apellido = listaContacto[0][2]    
+            if opcion==2:
+                apellido = listaContacto[0][2]    
 
-        print("El apellido del trabajador es {} ¿Desea cambiarlo? 1. Si 2. No".format(listaContacto[0][3]))
+        print("Desea cambiar la relacion que es {} ¿Desea cambiarlo? 1. Si 2. No".format(listaContacto[0][3]))
 
         opcion = int(input())
 
         if opcion == 1:
             relacion = input("Ingrese relacion que tiene el contacto con el trabajador: ")
         else:
-            relacion = listaContacto[0][3]    
+            if opcion==2:
+                relacion = listaContacto[0][3]    
 
-        print("Desea cambiar la relacion que es {}  ¿Desea cambiarlo? 1. Si 2. No".format(listaContacto[0][4]))
+        print("El numero de telefono que es {}  ¿Desea cambiarlo? 1. Si 2. No".format(listaContacto[0][4]))
 
         opcion = int(input())
 
         if opcion == 1:
             telefono = input("Ingrese telefono del contacto: ")
         else:
-            relacion = listaContacto[0][4]    
+            telefono = listaContacto[0][4]    
 
-        print("El numero de telefono que es {}  ¿Desea cambiarlo? 1. Si 2. No".format(listaContacto[0][5]))
-
-        opcion = int(input())
-
-        miCursor.execute("UPDATE TRABAJADOR SET nombre = '{}', apellido = '{}', relacion = '{}', telefono = '{} ".format(nombre, apellido, relacion, telefono))    
+        miCursor.execute("UPDATE CONTACTO_EMERGENCIA SET nombre = '{}', apellido = '{}', relacion = '{}', telefono = '{}' WHERE rut_ce = {} ".format(nombre, apellido, relacion, telefono, rut_ce))    
         conn.commit()
-        print("El codifo con rut {} se modifico".format(rut_ce))
+        print("El codigo con rut {} se modifico".format(rut_ce))
 # LISTAR
 def ListarContacto():
     miCursor.execute("SELECT * FROM CONTACTO_EMERGENCIA")
@@ -100,7 +99,7 @@ def EliminarContacto():
     if len(listaTrabajador) == 0:
         print("Error, no se puede eliminar la carga familiar, debido a que no existe")
     else:
-        miCursor.execute("DELETE FROM CONTACTO_EMERGENCIA WHERE rut_t = {}".format(rut_ce))
+        miCursor.execute("DELETE FROM CONTACTO_EMERGENCIA WHERE rut_ce = {}".format(rut_ce))
         conn.commit()
         print("Contacto eliminado correctamente")
 

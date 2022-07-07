@@ -52,32 +52,47 @@ def ModificarTrabajador():
         if opcion == 1:
             nombre = input("Ingrese al nuevo trabajador: ")
         else:
-            nombre = listaTrabajador[0][1]
-        print("El nombre del trabajador es {} ¿Desea cambiarlo? 1. Si 2.No".format(listaTrabajador[0][2]))
+            if opcion ==2:
+                nombre = listaTrabajador[0][1]
+        print("El apellido del trabajador es {} ¿Desea cambiarlo? 1. Si 2.No".format(listaTrabajador[0][2]))
 
-        op = int(input())
+        opcion = int(input())
 
         if opcion == 1:
             apellido = input("Ingrese el nuevo apellido del trabajador: ")
         else:
-            apellido = listaTrabajador[0][2]
-        print("El apellido del trabajador es {} ¿Desea cambiarlo? 1. Si 2. No".format(listaTrabajador[0][3]))
+            if opcion ==2:
+                apellido = listaTrabajador[0][2]
+        print("La direccion del trabajador es {} ¿Desea cambiarlo? 1. Si 2. No".format(listaTrabajador[0][3]))
 
-        op = int(input())
+        opcion = int(input())
 
-        if op == 1:
+        if opcion == 1:
             direccion = input("Ingrese la nueva direccion del trabajador: ")
         else:
-            direccion = listaTrabajador[0][3]
-        print("La direccion del trabajador es {} ¿Desea cambiarlo? 1. Si 2. No".format(listaTrabajador[0][4]))
+            if opcion ==2:
+                direccion = listaTrabajador[0][3]
+        print("El telefono del trabajador es {} ¿Desea cambiarlo? 1. Si 2. No".format(listaTrabajador[0][4]))
 
-        if op == 1:
-            telefono = input("Ingrese la nueva direccion del trabajador: ")
+        opcion = int(input())
+
+        if opcion == 1:
+            telefono = input("Ingrese el nuevo telefono del trabajador: ")
         else:
-            telefono = listaTrabajador[0][4]
-        print("El telefono del trabajador es {} ¿Desea cambiarlo? 1. Si 2. No".format(listaTrabajador[0][5])) 
+            if opcion ==2:
+                telefono = listaTrabajador[0][4]
 
-        miCursor.execute("UPDATE TRABAJADOR SET nombre = '{}', apellido = '{}', direccion = '{}', telefono = '{}' WHERE rut_t = {}".format(nombre, apellido, direccion, telefono, rut_t))    
+        print("La fecha del trabajador es {} ¿Desea cambiarlo? 1. Si 2. No".format(listaTrabajador[0][5])) 
+
+        opcion = int(input())
+
+        if opcion == 1:
+            fecha_ingreso = input("Ingrese la nueva fecha del trabajador: ")
+        else:
+            if opcion ==2:
+                fecha_ingreso = listaTrabajador[0][5]
+
+        miCursor.execute("UPDATE TRABAJADOR SET nombre = '{}', apellido = '{}', direccion = '{}', telefono = '{}', fecha_ingreso = '{}' WHERE rut_t = {}".format(nombre, apellido, direccion, telefono, fecha_ingreso, rut_t))    
         conn.commit()
         print("El Producto con ID: {} se actualizó correctamente".format(rut_t))
 # LISTAR

@@ -37,28 +37,27 @@ def ModificarFamiliar():
     if len(listaFamiliar) == 0:
         print("No se puede modificar carga familiar")
     else:
-        print("El rut del familiar que desea editar es {} ¿Desea cambiarlo? 1.Si 2.No".format(listaFamiliar[0][1]))
+        print("El nombre del familiar que desea editar es {} ¿Desea cambiarlo? 1.Si 2.No".format(listaFamiliar[0][1]))
         
         opcion = int(input())
 
         if opcion == 1:
             nombre = input("Ingrese nuevo nombre del familiar: ")
         else:
-            nombre = listaFamiliar[0][1]
-        print("El nombre del familiar ahora es {} ¿Desea cambiarlo? 1.Si 2.No".format(listaFamiliar[0][2]))
+            if opcion == 2:
+                nombre = listaFamiliar[0][1]
+        print("El apellido del familiar familiar ahora es {} ¿Desea cambiarlo? 1.Si 2.No".format(listaFamiliar[0][2]))
 
         opcion = int(input())
         
         if opcion == 1:
             apellido = input("Ingrese el nuevo apellido del trabajador: ")
         else:
-            apellido = listaFamiliar[0][2]    
+            if opcion==2:
+                apellido = listaFamiliar[0][2]    
 
-        print("El apellido del trabajador es {} ¿Desea cambiarlo? 1. Si 2. No".format(listaFamiliar[0][3]))
 
-        opcion = int(input())
-
-        miCursor.execute("UPDATE TRABAJADOR SET nombre = '{}', apellido = '{}' ".format(nombre, apellido))    
+        miCursor.execute("UPDATE TRABAJADOR SET nombre = '{}', apellido = '{}' WHERE rut_cf = {} ".format(nombre, apellido, rut_cf))    
         conn.commit()
         print("La carga familiar con rut {} se modifico".format(rut_cf))
 # LISTAR
@@ -78,7 +77,7 @@ def EliminarFamiliar():
     if len(listaTrabajador) == 0:
         print("Error, no se puede eliminar la carga familiar, debido a que no existe")
     else:
-        miCursor.execute("DELETE FROM CARGA_FAMILIAR WHERE rut_t = {}".format(rut_cf))
+        miCursor.execute("DELETE FROM CARGA_FAMILIAR WHERE rut_cf = {}".format(rut_cf))
         conn.commit()
         print("Carga familiar eliminado correctamente")
 
