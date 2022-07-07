@@ -56,7 +56,7 @@ def ModificarFamiliar():
 
         print("El apellido del trabajador es {} ¿Desea cambiarlo? 1. Si 2. No".format(listaFamiliar[0][3]))
 
-        op = int(input())
+        opcion = int(input())
 
         miCursor.execute("UPDATE TRABAJADOR SET nombre = '{}', apellido = '{}' ".format(nombre, apellido))    
         conn.commit()
@@ -68,6 +68,19 @@ def ListarFamiliar():
 
     for familiar in listaFamiliar:
         print("rut_t: {}, nombre: {}, apellido: {}".format(familiar[0], familiar[1], familiar[2]))
+#ELIMINAR
+def EliminarFamiliar():
+    rut_cf = input("Ingrese el rut que desea eliminar: ")
+    miCursor.execute("SELECT * FROM CARGA_FAMILIAR WHERE rut_cf = {}".format(rut_cf))
+
+    listaTrabajador = miCursor.fetchall()
+
+    if len(listaTrabajador) == 0:
+        print("Error, no se puede eliminar la carga familiar, debido a que no existe")
+    else:
+        miCursor.execute("DELETE FROM CARGA_FAMILIAR WHERE rut_t = {}".format(rut_cf))
+        conn.commit()
+        print("Carga familiar eliminado correctamente")
 
 def MenuFamiliar():
     repeat = True
@@ -76,7 +89,8 @@ def MenuFamiliar():
     print("1 Agregar")
     print("2 Modificar")
     print("3 Listar")
-    print("4 Salir")
+    print("4.Eliminar")
+    print("5 Salir")
     print("------------------------------")
     opcion = int(input("Ingrese opcion: "))
 
@@ -90,6 +104,9 @@ def MenuFamiliar():
         ListarFamiliar()
     
     if opcion == 4:
+        EliminarFamiliar()
+
+    if opcion == 5:
         repeat = False
     
     return repeat

@@ -12,7 +12,7 @@ class ContactoEmergencia:
         self.apellido = apellido
         self.relacion = relacion
         self.telefono = telefono
-
+# AGREGAR
 def AgregarContacto():
     rut_ce = input("Ingresar rut: ")
     nombre = input("Ingrese nombre: ")
@@ -30,7 +30,7 @@ def AgregarContacto():
         conn.commit()
         print("Datos creados exitosamente")
     else:
-        print("Error, Familiar ya existe")
+        print("Error, Contacto ya existe")
 # MODIFICAR
 def ModificarContacto():
     rut_ce = input("Ingrese rut que desea modificar: ")
@@ -90,7 +90,19 @@ def ListarContacto():
 
     for contacto in listaFamiliar:
         print("rut_t: {}, nombre: {}, apellido: {}, relacion: '{}', telefono: '{}'".format(contacto[0], contacto[1], contacto[2], contacto[3], contacto[4]))
+# ELIMINAR
+def EliminarContacto():
+    rut_ce = input("Ingrese el rut que desea eliminar: ")
+    miCursor.execute("SELECT * FROM CONTACTO_EMERGENCIA WHERE rut_ce = {}".format(rut_ce))
 
+    listaTrabajador = miCursor.fetchall()
+
+    if len(listaTrabajador) == 0:
+        print("Error, no se puede eliminar la carga familiar, debido a que no existe")
+    else:
+        miCursor.execute("DELETE FROM CONTACTO_EMERGENCIA WHERE rut_t = {}".format(rut_ce))
+        conn.commit()
+        print("Contacto eliminado correctamente")
 
 def MenuContacto():
     repeat = True
@@ -99,9 +111,10 @@ def MenuContacto():
     print("1 Agregar")
     print("2 Modificar")
     print("3 Listar")
-    print("4 Salir")
+    print("4 Eliminar")
+    print("5 Salir")
     print("------------------------------")
-    opcion = int(input())
+    opcion = int(input("Ingrese opcion: "))
 
     if opcion == 1:
         AgregarContacto()
@@ -111,8 +124,11 @@ def MenuContacto():
 
     if opcion == 3:
         ListarContacto()
-    
+
     if opcion == 4:
+        EliminarContacto()
+    
+    if opcion == 5:
         repeat = False
     
     return repeat

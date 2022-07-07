@@ -29,39 +29,38 @@ def AgregarTrabajador():
 
     if len(Validacion) == 0:
           # Generar insert
-        miCursor.execute("INSERT INTO CREDITO VALUES('{}', '{}', '{}', '{}', '{}', '{}')".format(a.rut_t, a.nombre, a.apellido, a.direccion, a.telefono, a.fecha_ingreso))
+        miCursor.execute("INSERT INTO TRABAJADOR VALUES('{}', '{}', '{}', '{}', '{}', '{}')".format(a.rut_t, a.nombre, a.apellido, a.direccion, a.telefono, a.fecha_ingreso))
             # Guardar cambios
         conn.commit()
-        print("Datos creados exitosamente")
+        print("Datos creados exitosamente\n")
     else:
-        print("Error, no se puede agregar ya que la ID existe")
+        print("Error, no se puede agregar Trabajador debido a que ya existe\n")
 # MODIFICAR
 def ModificarTrabajador():
     rut_t = input("Ingrese el rut de trabajador a editar: ")
-    miCursor.execute("SELECT * FROM PRODUCTO WHERE rut_t  = {}".format(rut_t))
+    miCursor.execute("SELECT * FROM TRABAJADOR WHERE rut_t  = {}".format(rut_t))
 
     listaTrabajador= miCursor.fetchall()
 
     if len(listaTrabajador) == 0:
-        print("Error, no se puede editar trabajador")
+        print("Error, no se puede editar trabajador\n")
     else:
-        print("El valor del nombre es {} ¿Desea cambiarlo? 1. Si 2. No".format(listaTrabajador[0][1]))
+        print("El nombre del Trabajador es {} ¿Desea cambiarlo? 1. Si 2. No".format(listaTrabajador[0][1]))
         
-        op = int(input())
+        opcion = int(input())
 
-        if op == 1:
-            nombre = input("Ingrese el nuevo nombre de trabajador: ")
+        if opcion == 1:
+            nombre = input("Ingrese al nuevo trabajador: ")
         else:
             nombre = listaTrabajador[0][1]
         print("El nombre del trabajador es {} ¿Desea cambiarlo? 1. Si 2.No".format(listaTrabajador[0][2]))
 
         op = int(input())
 
-        if op == 1:
+        if opcion == 1:
             apellido = input("Ingrese el nuevo apellido del trabajador: ")
         else:
-            apellido = listaTrabajador[0][2]    
-
+            apellido = listaTrabajador[0][2]
         print("El apellido del trabajador es {} ¿Desea cambiarlo? 1. Si 2. No".format(listaTrabajador[0][3]))
 
         op = int(input())
@@ -70,14 +69,12 @@ def ModificarTrabajador():
             direccion = input("Ingrese la nueva direccion del trabajador: ")
         else:
             direccion = listaTrabajador[0][3]
-
         print("La direccion del trabajador es {} ¿Desea cambiarlo? 1. Si 2. No".format(listaTrabajador[0][4]))
 
         if op == 1:
             telefono = input("Ingrese la nueva direccion del trabajador: ")
         else:
             telefono = listaTrabajador[0][4]
-
         print("El telefono del trabajador es {} ¿Desea cambiarlo? 1. Si 2. No".format(listaTrabajador[0][5])) 
 
         miCursor.execute("UPDATE TRABAJADOR SET nombre = '{}', apellido = '{}', direccion = '{}', telefono = '{}' WHERE rut_t = {}".format(nombre, apellido, direccion, telefono, rut_t))    
@@ -90,18 +87,31 @@ def ListarTrabajador():
 
     for trabajador in listaTrabajador:
         print("rut_t: {}, nombre: {}, apellido: {}, direccion: {}, telefono: {}, fecha_ingreso: {}".format(trabajador[0], trabajador[1], trabajador[2], trabajador[3], trabajador[4], trabajador[5]))
+#ELIMINAR
+def EliminarTrabajador():
+    rut_t = input("Ingrese el rut que desea eliminar: ")
+    miCursor.execute("SELECT * FROM TRABAJADOR WHERE rut_t = {}".format(rut_t))
 
+    listaTrabajador = miCursor.fetchall()
+
+    if len(listaTrabajador) == 0:
+        print("Error, no se puede eliminar al Trabajador, debido a que no existe")
+    else:
+        miCursor.execute("DELETE FROM TRABAJADOR WHERE rut_t = {}".format(rut_t))
+        conn.commit()
+        print("Trabajador eliminado correctamente")
 
 def MenuTrabajador():
     repeat = True
 
-    print("--Menu trabajadores--")
+    print("--Menu trabajadores--\n")
     print("1 Agregar")
     print("2 Modificar")
     print("3 Listar")
-    print("4 Salir")
+    print("4 Eliminiar")
+    print("5 Salir\n")
     print("------------------------------")
-    opcion = int(input())
+    opcion = int(input("Ingrese opcion: "))
 
     if opcion == 1:
         AgregarTrabajador()
@@ -111,8 +121,11 @@ def MenuTrabajador():
 
     if opcion == 3:
         ListarTrabajador()
-    
+
     if opcion == 4:
+        EliminarTrabajador()
+    
+    if opcion == 5:
         repeat = False
     
     return repeat
